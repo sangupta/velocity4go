@@ -18,6 +18,10 @@ import (
 	"sangupta.com/velocity4go/utils"
 )
 
+/**
+ * A node in the parse tree that is a plain reference such as {@code $x}. This node may appear
+ * inside a more complex reference like {@code $x.foo}.
+ */
 type PlainReferenceNode struct {
 	ResourceName string
 	LineNumber   uint

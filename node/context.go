@@ -30,3 +30,7 @@ func (context *EvaluationContext) GetVar(id string) interface{} {
 
 	panic(errors.New("cannot get variable which is not defined: " + id))
 }
+
+func (context *EvaluationContext) SetVar(id string, value interface{}) {
+	context.Variables[id] = value
+}

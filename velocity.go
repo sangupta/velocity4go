@@ -21,10 +21,14 @@ import (
 
 func main() {
 	// what callee will pass
-	template := "Hello $name"
+	template := "Hello ${name}."
 	variables := make(map[string]interface{})
 	variables["name"] = "velocity4go"
 
+	parseAndRender(template, variables, true)
+}
+
+func parseAndRender(template string, vars map[string]interface{}, render bool) {
 	// our local code
 	chars := []rune(template)
 	parser := parser.Parser{
@@ -37,24 +41,27 @@ func main() {
 	duration := time.Since(start)
 
 	fmt.Println("time taken to parse: " + duration.String())
-
 	if err != nil {
 		fmt.Println("Failed")
 		return
 	}
 
-	startRender := time.Now()
-	rendered := parsedTemplate.Evaluate(variables)
-	durationRender := time.Since(startRender)
-
-	fmt.Println("time taken to render: " + durationRender.String())
-
 	jsonStr, ok := json.MarshalIndent(parsedTemplate, "", "  ")
 	if ok != nil {
 		fmt.Println("cannot convert to JSON")
+
+		return
+	}
+	fmt.Println(string(jsonStr))
+
+	if !render {
 		return
 	}
 
-	fmt.Println(string(jsonStr))
+	startRender := time.Now()
+	rendered := parsedTemplate.Evaluate(vars)
+	durationRender := time.Since(startRender)
+
+	fmt.Println("time taken to render: " + durationRender.String())
 	fmt.Println("rendered: " + rendered)
 }

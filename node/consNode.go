@@ -11,7 +11,10 @@
 
 package node
 
-import "strings"
+import (
+	"errors"
+	"strings"
+)
 
 type ConsNode struct {
 	ResourceName string
@@ -42,6 +45,10 @@ func (node *ConsNode) IsHorizontalWhitespace() bool {
 
 func (node *ConsNode) Render(context *EvaluationContext, output *strings.Builder) {
 	for _, localNode := range node.Children {
+		if localNode == nil {
+			panic(errors.New("nil node added in template parsing phase"))
+		}
+
 		localNode.Render(context, output)
 	}
 }
