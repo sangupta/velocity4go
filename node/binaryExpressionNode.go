@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type BinaryExpressionNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -41,6 +43,10 @@ func (node *BinaryExpressionNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *BinaryExpressionNode) MarkExpressionNode() {
+
+}
+
+func (node *BinaryExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

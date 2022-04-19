@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree representing a macro call. If the template contains a definition like
  * {@code #macro (mymacro $x $y) ... #end}, then a call of that macro looks like
@@ -50,6 +52,10 @@ func (node *MacroCallNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *MacroCallNode) MarkDirectiveNode() {
+
+}
+
+func (node *MacroCallNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

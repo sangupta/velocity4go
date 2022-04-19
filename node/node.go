@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * Marker interface to show inheritance.
  */
@@ -20,4 +22,5 @@ type Node interface {
 	String() string
 	IsWhitespace() bool
 	IsHorizontalWhitespace() bool
+	Render(context *EvaluationContext, output *strings.Builder)
 }

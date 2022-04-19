@@ -11,10 +11,30 @@
 
 package node
 
+import (
+	"errors"
+	"strings"
+
+	"sangupta.com/velocity4go/utils"
+)
+
 /**
  * Marker interface to borrow inheritance
  */
 type ExpressionNode interface {
 	Node
 	MarkExpressionNode()
+}
+
+func renderExpression(context *EvaluationContext, output *strings.Builder, rendered interface{}, silent bool) {
+	if rendered == nil {
+		if silent { // $!foo for example
+			return
+		}
+
+		// throw evaluationException("Null value for " + this);
+		panic(errors.New("Null value for rendered"))
+	}
+
+	output.WriteString(utils.AsString(rendered))
 }

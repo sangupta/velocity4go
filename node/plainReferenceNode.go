@@ -11,6 +11,13 @@
 
 package node
 
+import (
+	"errors"
+	"strings"
+
+	"sangupta.com/velocity4go/utils"
+)
+
 type PlainReferenceNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -45,6 +52,15 @@ func (node *PlainReferenceNode) MarkReferenceNode() {
 
 func (node *PlainReferenceNode) MarkExpressionNode() {
 
+}
+
+func (node *PlainReferenceNode) Render(context *EvaluationContext, output *strings.Builder) {
+	if !context.IsVarDefined(node.Id) {
+		panic(errors.New("undefined reference: " + node.Id))
+	}
+
+	variable := context.GetVar(node.Id)
+	output.WriteString(utils.AsString(variable))
 }
 
 func NewPlainReferenceNode(name string, line uint, id string, silent bool) *PlainReferenceNode {

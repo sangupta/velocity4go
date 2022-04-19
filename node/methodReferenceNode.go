@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree representing a method reference, like {@code $list.size()}.
  */
@@ -49,6 +51,10 @@ func (node *MethodReferenceNode) MarkReferenceNode() {
 }
 
 func (node *MethodReferenceNode) MarkExpressionNode() {
+
+}
+
+func (node *MethodReferenceNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

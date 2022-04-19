@@ -12,7 +12,10 @@
 package node
 
 import (
+	"strings"
 	"unicode"
+
+	"sangupta.com/velocity4go/utils"
 )
 
 type ConstantExpressionNode struct {
@@ -30,31 +33,16 @@ func (node *ConstantExpressionNode) GetLineNumber() uint {
 	return node.LineNumber
 }
 
+func (node *ConstantExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.evaluate(context), false)
+}
+
+func (node *ConstantExpressionNode) evaluate(context *EvaluationContext) interface{} {
+	return node.String()
+}
+
 func (node *ConstantExpressionNode) String() string {
-	if node.Value == nil {
-		return "nil"
-	}
-
-	str, ok := node.Value.(string)
-	if ok {
-		return str
-	}
-
-	boo, ok := node.Value.(bool)
-	if ok {
-		if boo {
-			return "true"
-		}
-
-		return "false"
-	}
-
-	intx, ok := node.Value.(int)
-	if ok {
-		return string(intx)
-	}
-
-	return "unknown"
+	return utils.AsString(node.Value)
 }
 
 func (node *ConstantExpressionNode) IsWhitespace() bool {

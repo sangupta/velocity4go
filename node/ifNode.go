@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree representing an {@code #if} construct. All instances of this class
  * have a <i>true</i> subtree and a <i>false</i> subtree. For a plain {@code #if (cond) body
@@ -48,6 +50,10 @@ func (node *IfNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *IfNode) MarkDirectiveNode() {
+
+}
+
+func (node *IfNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree that is a reference to a property of another reference, like
  * {@code $x.foo} or {@code $x[$i].foo}.
@@ -49,6 +51,10 @@ func (node *MemberReferenceNode) MarkReferenceNode() {
 }
 
 func (node *MemberReferenceNode) MarkExpressionNode() {
+
+}
+
+func (node *MemberReferenceNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

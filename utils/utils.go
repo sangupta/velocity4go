@@ -63,3 +63,30 @@ func ParseException(message string) error {
 func ParseInt(str string) int {
 	panic(ParseException("Invalid integer: " + str))
 }
+
+func AsString(value interface{}) string {
+	if value == nil {
+		return "nil"
+	}
+
+	str, ok := value.(string)
+	if ok {
+		return str
+	}
+
+	boo, ok := value.(bool)
+	if ok {
+		if boo {
+			return "true"
+		}
+
+		return "false"
+	}
+
+	intx, ok := value.(int)
+	if ok {
+		return string(intx)
+	}
+
+	return "unknown"
+}

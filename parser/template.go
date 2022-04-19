@@ -11,7 +11,11 @@
 
 package parser
 
-import "sangupta.com/velocity4go/node"
+import (
+	"strings"
+
+	"sangupta.com/velocity4go/node"
+)
 
 type Template struct {
 	Root   node.Node
@@ -23,6 +27,13 @@ type Template struct {
  * Evaluate this template against the given set of
  * variable data.
  */
-func (template *Template) Evaluate(map[string]interface{}) {
+func (template *Template) Evaluate(variables map[string]interface{}) string {
+	builder := strings.Builder{}
+	context := node.EvaluationContext{
+		Variables: variables,
+	}
 
+	template.Root.Render(&context, &builder)
+
+	return builder.String()
 }

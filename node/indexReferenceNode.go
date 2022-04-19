@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree that is an indexing of a reference, like {@code $x[0]} or
  * {@code $x.foo[$i]}. Indexing is array indexing or calling the {@code get} method of a list
@@ -50,6 +52,10 @@ func (node *IndexReferenceNode) MarkExpressionNode() {
 }
 
 func (node *IndexReferenceNode) MarkReferenceNode() {
+
+}
+
+func (node *IndexReferenceNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

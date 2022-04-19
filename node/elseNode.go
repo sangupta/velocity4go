@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type ElseNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -38,6 +40,10 @@ func (node *ElseNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *ElseNode) MarkStopNode() {
+
+}
+
+func (node *ElseNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

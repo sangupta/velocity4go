@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree representing a {@code #foreach} construct. While evaluating
  * {@code #foreach ($x in $things)}, {$code $x} will be set to each element of {@code $things} in
@@ -49,6 +51,10 @@ func (node *ForEachNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *ForEachNode) MarkDirectiveNode() {
+
+}
+
+func (node *ForEachNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

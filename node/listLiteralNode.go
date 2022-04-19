@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type ListLiteralNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -39,6 +41,10 @@ func (node *ListLiteralNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *ListLiteralNode) MarkExpressionNode() {
+
+}
+
+func (node *ListLiteralNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type NotExpressionNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -39,6 +41,10 @@ func (node *NotExpressionNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *NotExpressionNode) MarkExpressionNode() {
+
+}
+
+func (node *NotExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

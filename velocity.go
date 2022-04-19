@@ -20,11 +20,12 @@ import (
 )
 
 func main() {
-	template := "Hello, ${name}. #if ($user.isOldEnough($age)) You are ${age} years old. #end"
-	parseTemplate(template)
-}
+	// what callee will pass
+	template := "Hello $name"
+	variables := make(map[string]interface{})
+	variables["name"] = "velocity4go"
 
-func parseTemplate(template string) {
+	// our local code
 	chars := []rune(template)
 	parser := parser.Parser{
 		Chars:        chars,
@@ -35,18 +36,25 @@ func parseTemplate(template string) {
 	parsedTemplate, err := parser.Parse()
 	duration := time.Since(start)
 
-	fmt.Println("time taken: " + duration.String())
+	fmt.Println("time taken to parse: " + duration.String())
 
 	if err != nil {
 		fmt.Println("Failed")
 		return
 	}
 
-	j, ok := json.MarshalIndent(parsedTemplate, "", "  ")
+	startRender := time.Now()
+	rendered := parsedTemplate.Evaluate(variables)
+	durationRender := time.Since(startRender)
+
+	fmt.Println("time taken to render: " + durationRender.String())
+
+	jsonStr, ok := json.MarshalIndent(parsedTemplate, "", "  ")
 	if ok != nil {
 		fmt.Println("cannot convert to JSON")
 		return
 	}
 
-	fmt.Println(string(j))
+	fmt.Println(string(jsonStr))
+	fmt.Println("rendered: " + rendered)
 }

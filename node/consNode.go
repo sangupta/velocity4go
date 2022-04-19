@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type ConsNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -36,6 +38,12 @@ func (node *ConsNode) IsWhitespace() bool {
 
 func (node *ConsNode) IsHorizontalWhitespace() bool {
 	return false
+}
+
+func (node *ConsNode) Render(context *EvaluationContext, output *strings.Builder) {
+	for _, localNode := range node.Children {
+		localNode.Render(context, output)
+	}
 }
 
 func NewConsNode(name string, line uint, children []Node) *ConsNode {

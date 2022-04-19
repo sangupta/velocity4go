@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 /**
  * A node in the parse tree representing a {@code #set} construct. Evaluating
  * {@code #set ($x = 23)} will set {@code $x} to the value 23. It does not in itself produce
@@ -48,6 +50,10 @@ func (node *SetNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *SetNode) MarkDirectiveNode() {
+
+}
+
+func (node *SetNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

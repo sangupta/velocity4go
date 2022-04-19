@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type ElseIfNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -38,6 +40,10 @@ func (node *ElseIfNode) IsHorizontalWhitespace() bool {
 }
 
 func (node *ElseIfNode) MarkStopNode() {
+
+}
+
+func (node *ElseIfNode) Render(context *EvaluationContext, output *strings.Builder) {
 
 }
 

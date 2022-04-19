@@ -11,6 +11,8 @@
 
 package node
 
+import "strings"
+
 type CommentNode struct {
 	ResourceName string
 	LineNumber   uint
@@ -35,6 +37,10 @@ func (node *CommentNode) IsWhitespace() bool {
 
 func (node *CommentNode) IsHorizontalWhitespace() bool {
 	return false
+}
+
+func (node *CommentNode) Render(context *EvaluationContext, output *strings.Builder) {
+
 }
 
 func NewCommentNode(name string, line uint) *CommentNode {
