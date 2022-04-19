@@ -9,18 +9,24 @@ a  subset re-write of original [Velocity](https://velocity.apache.org).
 ## Hacking
 
 ```go
+package main
 
-import velocity "sangupta.com/velocity4go"
+import (
+    "fmt"
+    velocity "sangupta.com/velocity4go"
+)
 
-templateString := "Hello World"
-template := velocity.ParseTemplate(templateString)
+func main() {
+    templateString := "Hello World"
+    template := velocity.ParseTemplate(templateString)
 
-variables := make(map[string]interface{}, 0)
+    variables := make(map[string]interface{}, 0)
 
-// .... add variables here
+    // .... add variables here
 
-text := velocity.Evaluate(template, variables)
-fmt.Println("Generated text: " + text)
+    text := velocity.Evaluate(template, variables)
+    fmt.Println("Generated text: " + text)
+}
 ```
 
 ## Author(s)
