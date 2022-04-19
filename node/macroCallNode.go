@@ -1,6 +1,6 @@
 /**
- * go-velocity: Velocity template engine for Go
- * https://sangupta.com/projects/go-velocity
+ * velocity4go: Velocity template engine for Go
+ * https://sangupta.com/projects/velocity4go
  *
  * MIT License.
  * Copyright (c) 2022, Sandeep Gupta.
