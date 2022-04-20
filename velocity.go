@@ -21,14 +21,16 @@ import (
 
 func main() {
 	// what callee will pass
-	template := "Hello ${name}."
+	template := "Hello ${name}. #if ($name) Hello World #end"
 	variables := make(map[string]interface{})
-	variables["name"] = "velocity4go"
 
-	parseAndRender(template, variables, true)
+	variables["name"] = "velocity4go"
+	variables["numbers"] = []int{10, 20, 30, 40, 50}
+
+	parseAndRender(template, variables, true, false)
 }
 
-func parseAndRender(template string, vars map[string]interface{}, render bool) {
+func parseAndRender(template string, vars map[string]interface{}, showTemplate bool, render bool) {
 	// our local code
 	chars := []rune(template)
 	parser := parser.Parser{
@@ -46,13 +48,15 @@ func parseAndRender(template string, vars map[string]interface{}, render bool) {
 		return
 	}
 
-	jsonStr, ok := json.MarshalIndent(parsedTemplate, "", "  ")
-	if ok != nil {
-		fmt.Println("cannot convert to JSON")
+	if showTemplate {
+		jsonStr, ok := json.MarshalIndent(parsedTemplate, "", "  ")
+		if ok != nil {
+			fmt.Println("cannot convert to JSON")
 
-		return
+			return
+		}
+		fmt.Println(string(jsonStr))
 	}
-	fmt.Println(string(jsonStr))
 
 	if !render {
 		return
@@ -63,5 +67,7 @@ func parseAndRender(template string, vars map[string]interface{}, render bool) {
 	durationRender := time.Since(startRender)
 
 	fmt.Println("time taken to render: " + durationRender.String())
+	fmt.Println()
 	fmt.Println("rendered: " + rendered)
+	fmt.Println()
 }

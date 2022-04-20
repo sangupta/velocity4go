@@ -31,6 +31,28 @@ func (context *EvaluationContext) GetVar(id string) interface{} {
 	panic(errors.New("cannot get variable which is not defined: " + id))
 }
 
-func (context *EvaluationContext) SetVar(id string, value interface{}) {
+/**
+ * Sets a variable in the context and returns an `undo` function to
+ * do away with the side effects when needed.
+ */
+func (context *EvaluationContext) SetVar(id string, value interface{}) func() {
+	var undo func()
+
+	oldValue, isDefined := context.Variables[id]
+	if isDefined {
+		undo = func() {
+			context.SetVar(id, oldValue)
+		}
+	} else {
+		undo = func() {
+			context.Remove(id)
+		}
+	}
+
 	context.Variables[id] = value
+	return undo
+}
+
+func (context *EvaluationContext) Remove(id string) {
+	delete(context.Variables, id)
 }

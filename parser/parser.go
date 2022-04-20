@@ -33,7 +33,12 @@ func isEndNode(localNode node.Node) bool {
 	return ok
 }
 
-func isElseElseIfEndNode(localNode node.Node) bool {
+func isElseIfNode(localNode node.Node) bool {
+	_, ok := localNode.(*node.ElseIfNode)
+	return ok
+}
+
+func isElseOrElseIfEndNode(localNode node.Node) bool {
 	_, ok := localNode.(*node.ElseNode)
 	if ok {
 		return true
@@ -116,16 +121,6 @@ func (parser *Parser) Parse() (Template, error) {
 }
 
 /**
- * If {@code c} is a space character, keeps reading until {@code c} is a non-space character or
- * there are no more characters.
- */
-func (parser *Parser) skipSpace() {
-	for unicode.IsSpace(parser.c) {
-		parser.next()
-	}
-}
-
-/**
  * Gets the next character from the reader and assigns it to {@code c}. If there are no more
  * characters, sets {@code c} to {@link #EOF} if it is not already.
  */
@@ -145,6 +140,16 @@ func (parser *Parser) next() {
 			parser.c = rune(parser.pushback)
 			parser.pushback = -1
 		}
+	}
+}
+
+/**
+ * If {@code c} is a space character, keeps reading until {@code c} is a non-space character or
+ * there are no more characters.
+ */
+func (parser *Parser) skipSpace() {
+	for unicode.IsSpace(parser.c) {
+		parser.next()
 	}
 }
 
@@ -369,7 +374,7 @@ func (parser *Parser) parseDirective() node.Node {
 		break
 
 	case "else":
-		// TODO: node = new ElseNode(resourceName, lineNumber());
+		localNode = node.NewElseNode(parser.ResourceName, parser.lineNumber())
 		break
 
 	case "foreach":
@@ -477,26 +482,25 @@ func (parser *Parser) parseIfOrElseIf(directive string) node.Node {
 	condition = parser.parseExpression()
 	parser.expect(')')
 
-	// TODO: fix below
-
 	var parsedTruePart ParseResult
 
 	description := "parsing " + directive + " starting on line " + fmt.Sprint(startLine)
-	parsedTruePart = parser.skipNewlineAndParseToStop(isElseElseIfEndNode, description)
+	parsedTruePart = parser.skipNewlineAndParseToStop(isElseOrElseIfEndNode, description)
 
 	var truePart node.Node
 	truePart = node.NewConsNode(parser.ResourceName, startLine, parsedTruePart.Nodes)
+
 	var falsePart node.Node
 
-	// if (parsedTruePart.stop instanceof EndNode) {
-	//   falsePart = Node.emptyNode(resourceName, lineNumber());
-	// } else if (parsedTruePart.stop instanceof ElseIfNode) {
-	//   falsePart = parseIfOrElseIf("#elseif");
-	// } else {
-	//   int elseLine = lineNumber();
-	//   ParseResult parsedFalsePart = parser.parseToStop(END_CLASS, () -> "parsing #else starting on line " + elseLine);
-	//   falsePart = Node.cons(resourceName, elseLine, parsedFalsePart.nodes);
-	// }
+	if isEndNode(parsedTruePart.stop) {
+		falsePart = node.EmptyNode(parser.ResourceName, parser.lineNumber())
+	} else if isElseIfNode(parsedTruePart.stop) {
+		falsePart = parser.parseIfOrElseIf("#elseif")
+	} else {
+		elseLine := parser.lineNumber()
+		parsedFalsePart := parser.parseToStop(isEndNode, "parsing #else starting on line "+string(elseLine))
+		falsePart = node.NewConsNode(parser.ResourceName, elseLine, parsedFalsePart.Nodes)
+	}
 
 	return node.NewIfNode(parser.ResourceName, startLine, condition, truePart, falsePart)
 }
@@ -549,7 +553,6 @@ func (parser *Parser) parseForEach() node.Node {
 
 	parser.expect(')')
 
-	// TODO: fix below
 	var parsedBody ParseResult
 	parsedBody = parser.skipNewlineAndParseToStop(isEndNode, "parsing #foreach starting on line "+fmt.Sprint(startLine))
 

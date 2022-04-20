@@ -15,4 +15,5 @@ import "sangupta.com/velocity4go/node"
 
 type ParseResult struct {
 	Nodes []node.Node
+	stop  node.StopNode
 }

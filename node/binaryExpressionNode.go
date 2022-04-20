@@ -47,11 +47,7 @@ func (node *BinaryExpressionNode) MarkExpressionNode() {
 }
 
 func (node *BinaryExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
-
-}
-
-func (node *BinaryExpressionNode) IsSilent() bool {
-	return false
+	renderExpression(context, output, node.Evaluate(context), false)
 }
 
 func (node *BinaryExpressionNode) IsTrue(context *EvaluationContext) bool {

@@ -11,7 +11,11 @@
 
 package node
 
-import "strings"
+import (
+	"errors"
+	"reflect"
+	"strings"
+)
 
 /**
  * A node in the parse tree representing a {@code #foreach} construct. While evaluating
@@ -47,6 +51,24 @@ func (node *ForEachNode) MarkDirectiveNode() {
 }
 
 func (node *ForEachNode) Render(context *EvaluationContext, output *strings.Builder) {
+	collectionValue := node.Collection.Evaluate(context)
+
+	if collectionValue == nil {
+		return
+	}
+
+	typeOf := reflect.TypeOf(collectionValue)
+	kind := typeOf.Kind()
+
+	switch kind {
+	case reflect.Slice:
+	case reflect.Array:
+	case reflect.Map:
+		break
+
+	default:
+		panic(errors.New("Value is not iterable"))
+	}
 
 }
 
