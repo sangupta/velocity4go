@@ -33,16 +33,24 @@ func (node *ConstantExpressionNode) GetLineNumber() uint {
 	return node.LineNumber
 }
 
-func (node *ConstantExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
-	renderExpression(context, output, node.evaluate(context), false)
+func (node *ConstantExpressionNode) IsTrue(context *EvaluationContext) bool {
+	return isExpressionTrue(node, context)
 }
 
-func (node *ConstantExpressionNode) evaluate(context *EvaluationContext) interface{} {
+func (node *ConstantExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.Evaluate(context), false)
+}
+
+func (node *ConstantExpressionNode) Evaluate(context *EvaluationContext) interface{} {
 	return node.String()
 }
 
 func (node *ConstantExpressionNode) String() string {
 	return utils.AsString(node.Value)
+}
+
+func (node *ConstantExpressionNode) IsSilent() bool {
+	return false
 }
 
 func (node *ConstantExpressionNode) IsWhitespace() bool {

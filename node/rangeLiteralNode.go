@@ -46,7 +46,36 @@ func (node *RangeLiteralNode) MarkExpressionNode() {
 }
 
 func (node *RangeLiteralNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.Evaluate(context), false)
+}
 
+func (node *RangeLiteralNode) IsTrue(context *EvaluationContext) bool {
+	return isExpressionTrue(node, context)
+}
+
+func (node *RangeLiteralNode) Evaluate(context *EvaluationContext) interface{} {
+	// TODO: fix this
+
+	// int from = first.intValue(context);
+	//   int to = last.intValue(context);
+	//   ImmutableSortedSet<Integer> set =
+	//       (from <= to)
+	//           ? ContiguousSet.closed(from, to)
+	//           : ContiguousSet.closed(to, from).descendingSet();
+	//   return new ForwardingSortedSet<Integer>() {
+	//     @Override
+	//     protected ImmutableSortedSet<Integer> delegate() {
+	//       return set;
+	//     }
+
+	//     @Override
+	//     public String toString() {
+	//       // ContiguousSet returns [1..3] whereas Velocity uses [1, 2, 3].
+	//       return set.asList().toString();
+	//     }
+	//   };
+
+	return nil
 }
 
 func NewRangeLiteralNode(resourceName string, lineNumber uint, first ExpressionNode, last ExpressionNode) *RangeLiteralNode {

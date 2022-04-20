@@ -14,8 +14,6 @@ package node
 import (
 	"errors"
 	"strings"
-
-	"sangupta.com/velocity4go/utils"
 )
 
 /**
@@ -58,13 +56,20 @@ func (node *PlainReferenceNode) MarkExpressionNode() {
 
 }
 
+func (node *PlainReferenceNode) IsTrue(context *EvaluationContext) bool {
+	return isExpressionTrue(node, context)
+}
+
 func (node *PlainReferenceNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.Evaluate(context), node.Silent)
+}
+
+func (node *PlainReferenceNode) Evaluate(context *EvaluationContext) interface{} {
 	if !context.IsVarDefined(node.Id) {
 		panic(errors.New("undefined reference: " + node.Id))
 	}
 
-	variable := context.GetVar(node.Id)
-	output.WriteString(utils.AsString(variable))
+	return context.GetVar(node.Id)
 }
 
 func NewPlainReferenceNode(name string, line uint, id string, silent bool) *PlainReferenceNode {

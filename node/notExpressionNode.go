@@ -44,8 +44,16 @@ func (node *NotExpressionNode) MarkExpressionNode() {
 
 }
 
-func (node *NotExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
+func (node *NotExpressionNode) Evaluate(context *EvaluationContext) interface{} {
+	return !node.Expression.IsTrue(context)
+}
 
+func (node *NotExpressionNode) IsTrue(context *EvaluationContext) bool {
+	return isExpressionTrue(node, context)
+}
+
+func (node *NotExpressionNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.Evaluate(context), false)
 }
 
 func NewNotExpressionNode(expr ExpressionNode) *NotExpressionNode {

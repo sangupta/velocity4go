@@ -45,7 +45,15 @@ func (node *ListLiteralNode) MarkExpressionNode() {
 }
 
 func (node *ListLiteralNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.Evaluate(context), false)
+}
 
+func (node *ListLiteralNode) IsTrue(context *EvaluationContext) bool {
+	return isExpressionTrue(node, context)
+}
+
+func (node *ListLiteralNode) Evaluate(context *EvaluationContext) interface{} {
+	return nil
 }
 
 func NewListLiteralNode(name string, line uint, elements []ExpressionNode) *ListLiteralNode {

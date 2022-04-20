@@ -56,7 +56,15 @@ func (node *IndexReferenceNode) MarkReferenceNode() {
 }
 
 func (node *IndexReferenceNode) Render(context *EvaluationContext, output *strings.Builder) {
+	renderExpression(context, output, node.Evaluate(context), node.Silent)
+}
 
+func (node *IndexReferenceNode) IsTrue(context *EvaluationContext) bool {
+	return isExpressionTrue(node, context)
+}
+
+func (node *IndexReferenceNode) Evaluate(context *EvaluationContext) interface{} {
+	return nil
 }
 
 func NewIndexReferenceNode(lhs ReferenceNode, index ExpressionNode, silent bool) *IndexReferenceNode {
