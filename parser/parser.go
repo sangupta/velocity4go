@@ -216,8 +216,15 @@ func (parser *Parser) parseToStop(stopClasses func(node node.Node) bool, context
 			nodes = append(nodes, localNode)
 		}
 	}
+
+	stopNode, ok := localNode.(node.StopNode)
+	if !ok {
+		panic(errors.New("Found " + localNode.String() + " " + contextDescription))
+	}
+
 	return ParseResult{
 		Nodes: nodes,
+		stop:  stopNode,
 	}
 }
 
@@ -370,6 +377,9 @@ func (parser *Parser) parseDirective() node.Node {
 		break
 
 	case "if":
+		return parser.parseIfOrElseIf("#if")
+
+	case "elseif":
 		localNode = node.NewElseIfNode(parser.ResourceName, parser.lineNumber())
 		break
 
