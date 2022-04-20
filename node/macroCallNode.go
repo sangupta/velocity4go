@@ -31,14 +31,6 @@ type MacroCallNode struct {
 	Type         string
 }
 
-func (cons *MacroCallNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *MacroCallNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *MacroCallNode) String() string {
 	return ""
 }

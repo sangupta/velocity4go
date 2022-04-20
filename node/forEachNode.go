@@ -30,14 +30,6 @@ type ForEachNode struct {
 	Type         string
 }
 
-func (cons *ForEachNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *ForEachNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *ForEachNode) String() string {
 	return ""
 }

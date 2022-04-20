@@ -23,6 +23,8 @@ import (
  */
 type ExpressionNode interface {
 	Node
+	GetResourceName() string
+	GetLineNumber() uint
 	IsTrue(context *EvaluationContext) bool
 	Evaluate(context *EvaluationContext) interface{}
 	MarkExpressionNode()

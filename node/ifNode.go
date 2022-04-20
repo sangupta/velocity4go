@@ -29,14 +29,6 @@ type IfNode struct {
 	Type         string
 }
 
-func (cons *IfNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *IfNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *IfNode) String() string {
 	return ""
 }

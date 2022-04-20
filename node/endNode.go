@@ -19,14 +19,6 @@ type EndNode struct {
 	Type         string
 }
 
-func (cons *EndNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *EndNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *EndNode) String() string {
 	return ""
 }

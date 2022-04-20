@@ -17,8 +17,6 @@ import "strings"
  * Marker interface to show inheritance.
  */
 type Node interface {
-	GetResourceName() string
-	GetLineNumber() uint
 	String() string
 	IsWhitespace() bool
 	IsHorizontalWhitespace() bool

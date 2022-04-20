@@ -19,14 +19,6 @@ type CommentNode struct {
 	Type         string
 }
 
-func (cons *CommentNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *CommentNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *CommentNode) String() string {
 	return ""
 }

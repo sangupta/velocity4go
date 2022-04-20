@@ -19,14 +19,6 @@ type EofNode struct {
 	Type         string
 }
 
-func (cons *EofNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *EofNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *EofNode) String() string {
 	return ""
 }

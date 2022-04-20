@@ -29,14 +29,6 @@ type SetNode struct {
 	Type         string
 }
 
-func (cons *SetNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *SetNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *SetNode) String() string {
 	return ""
 }

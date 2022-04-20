@@ -19,14 +19,6 @@ type ElseNode struct {
 	Type         string
 }
 
-func (cons *ElseNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *ElseNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *ElseNode) String() string {
 	return ""
 }

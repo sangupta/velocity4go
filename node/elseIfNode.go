@@ -19,14 +19,6 @@ type ElseIfNode struct {
 	Type         string
 }
 
-func (cons *ElseIfNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *ElseIfNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *ElseIfNode) String() string {
 	return ""
 }

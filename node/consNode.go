@@ -23,14 +23,6 @@ type ConsNode struct {
 	Type         string
 }
 
-func (cons *ConsNode) GetResourceName() string {
-	return cons.ResourceName
-}
-
-func (cons *ConsNode) GetLineNumber() uint {
-	return cons.LineNumber
-}
-
 func (node *ConsNode) String() string {
 	return ""
 }
