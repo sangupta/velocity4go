@@ -6,6 +6,22 @@ a  subset re-write of original [Velocity](https://velocity.apache.org).
 
 ### In Development - basic functionality not yet complete.
 
+TODO items:
+* Template parsing
+    * ~if/elseif/else directive~
+    * foreach directive
+    * set directive
+    * custom directives: include/user-defined
+    * macros
+* Evaluation
+    * ~parameter evaluation~
+    * foreach evaluation
+    * set evaluation
+    * if/elseif/else evaluation
+    * custom directive evaluation
+    * macro evaluation
+* Unit tests
+
 ## Hacking
 
 ```go
