@@ -436,7 +436,7 @@ func (parser *Parser) parseIfOrElseIf(directive string) node.Node {
 		falsePart = parser.parseIfOrElseIf("#elseif")
 	} else {
 		elseLine := parser.lineNumber()
-		parsedFalsePart := parser.parseToStop(isEndNode, "parsing #else starting on line "+string(elseLine))
+		parsedFalsePart := parser.parseToStop(isEndNode, "parsing #else starting on line "+fmt.Sprint(elseLine))
 		falsePart = node.NewConsNode(parser.ResourceName, elseLine, parsedFalsePart.Nodes)
 	}
 

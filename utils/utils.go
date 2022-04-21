@@ -13,6 +13,7 @@ package utils
 
 import (
 	"errors"
+	"fmt"
 )
 
 // ----------------
@@ -85,7 +86,7 @@ func AsString(value interface{}) string {
 
 	intx, ok := value.(int)
 	if ok {
-		return string(intx)
+		return fmt.Sprint(intx)
 	}
 
 	return "unknown"
