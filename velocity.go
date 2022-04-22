@@ -16,12 +16,12 @@ import (
 	"fmt"
 	"time"
 
-	"sangupta.com/velocity4go/parser"
+	"sangupta.com/velocity/parser"
 )
 
 func main() {
 	// what callee will pass
-	template := "Hello ${name}. #if ($name) Hello World #end"
+	template := "Hello ${name}."
 	variables := make(map[string]interface{})
 
 	variables["name"] = "velocity4go"

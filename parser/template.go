@@ -14,7 +14,7 @@ package parser
 import (
 	"strings"
 
-	"sangupta.com/velocity4go/node"
+	"sangupta.com/velocity/node"
 )
 
 type Template struct {

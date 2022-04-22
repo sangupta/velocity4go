@@ -15,7 +15,7 @@ import (
 	"errors"
 	"strings"
 
-	"sangupta.com/velocity4go/utils"
+	"sangupta.com/velocity/utils"
 )
 
 /**

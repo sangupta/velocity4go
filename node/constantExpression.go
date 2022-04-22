@@ -15,7 +15,7 @@ import (
 	"strings"
 	"unicode"
 
-	"sangupta.com/velocity4go/utils"
+	"sangupta.com/velocity/utils"
 )
 
 type ConstantExpressionNode struct {

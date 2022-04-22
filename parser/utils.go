@@ -11,7 +11,7 @@
 
 package parser
 
-import "sangupta.com/velocity4go/node"
+import "sangupta.com/velocity/node"
 
 /**
  * Denotes end of file as a rune

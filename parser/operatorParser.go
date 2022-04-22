@@ -14,7 +14,7 @@ package parser
 import (
 	"errors"
 
-	"sangupta.com/velocity4go/node"
+	"sangupta.com/velocity/node"
 )
 
 type OperatorParser struct {

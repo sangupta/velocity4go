@@ -17,8 +17,8 @@ import (
 	"strings"
 	"unicode"
 
-	node "sangupta.com/velocity4go/node"
-	utils "sangupta.com/velocity4go/utils"
+	node "sangupta.com/velocity/node"
+	utils "sangupta.com/velocity/utils"
 )
 
 // ----------------
